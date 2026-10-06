@@ -1,5 +1,28 @@
 let sneakers = [];
 
+let form = document.querySelector(".shoe-form");
+
+let brandInput = document.querySelector("#brand");
+let modelInput = document.querySelector("#model");
+let sizeInput = document.querySelector("#size");
+let colorwayInput = document.querySelector("#colorway");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  let newShoe = {
+    brand: brandInput.value,
+    model: modelInput.value,
+    size: sizeInput.value,
+    colorway: colorwayInput.value,
+    favorite: false,
+  };
+
+  sneakers.push(newShoe);
+
+  displayShoes();
+});
+
 let modelOne = {
   brand: "Jordan",
   model: "Reto 6",
