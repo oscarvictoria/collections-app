@@ -56,7 +56,7 @@ let shoeList = document.querySelector(".shoe-list");
 function displayShoes() {
   shoeList.textContent = "";
 
-  sneakers.forEach(function (shoe) {
+  sneakers.forEach(function (shoe, index) {
     let shoeCard = document.createElement("div");
 
     let h2 = document.createElement("h2");
@@ -71,8 +71,25 @@ function displayShoes() {
     color.textContent = "Color: " + shoe.colorway;
     shoeCard.appendChild(color);
 
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "delete";
+    deleteButton.value = index;
+
+    shoeCard.appendChild(deleteButton);
+
     shoeList.appendChild(shoeCard);
   });
 }
+
+shoeList.addEventListener("click", function (e) {
+  if (e.target.className === "delete") {
+    let index = Number(e.target.value);
+    sneakers = sneakers.filter(function (shoe, shoeIndex) {
+      return shoeIndex !== index;
+    });
+  }
+  displayShoes();
+});
 
 displayShoes();
