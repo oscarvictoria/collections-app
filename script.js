@@ -71,6 +71,18 @@ function displayShoes() {
     color.textContent = "Color: " + shoe.colorway;
     shoeCard.appendChild(color);
 
+    // Favorite button
+    let favoriteButton = document.createElement("button");
+    favoriteButton.className = "Favorite";
+    if (shoe.favorite) {
+      favoriteButton.textContent = "★ Favorited";
+    } else {
+      favoriteButton.textContent = "☆ Favorite";
+    }
+
+    favoriteButton.value = index;
+    shoeCard.appendChild(favoriteButton);
+
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.className = "delete";
@@ -88,6 +100,11 @@ shoeList.addEventListener("click", function (e) {
     sneakers = sneakers.filter(function (shoe, shoeIndex) {
       return shoeIndex !== index;
     });
+  } else if (e.target.classList.contains("Favorite")) {
+    let index = Number(e.target.value);
+    sneakers[index].favorite = !sneakers[index].favorite;
+    displayShoes();
+    console.log(sneakers[index].favorite);
   }
   displayShoes();
 });
