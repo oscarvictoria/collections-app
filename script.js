@@ -76,8 +76,10 @@ function displayShoes() {
     favoriteButton.className = "Favorite";
     if (shoe.favorite) {
       favoriteButton.textContent = "★ Favorited";
+      favoriteButton.classList.add("is-active");
     } else {
       favoriteButton.textContent = "☆ Favorite";
+      favoriteButton.classList.remove("is-active");
     }
 
     favoriteButton.value = index;

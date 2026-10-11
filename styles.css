@@ -1,6 +1,9 @@
 body {
 }
 
+div {
+}
+
 div form {
   margin: 0;
   padding: 0;
@@ -11,15 +14,25 @@ form {
   display: block;
   width: 350px;
   height: 400px;
+  max-width: 450px;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+select {
+  margin-top: 30px;
 }
 
 form input,
 label {
-  margin: 10px;
+  margin: 12px;
   padding-top: 5px;
   width: 150px;
   height: 15px;
   display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 #submit {
@@ -65,9 +78,13 @@ form button {
 
 .shoe-list div button {
   display: block;
-  width: 30%;
+  min-width: 30%;
   margin: 20px auto;
   border: 2px solid black;
   padding: 8px 16px;
   border-radius: 4px;
+}
+
+.shoe-list div button.is-active {
+  background-color: gold;
 }
