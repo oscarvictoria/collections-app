@@ -7,6 +7,8 @@ let modelInput = document.querySelector("#model");
 let sizeInput = document.querySelector("#size");
 let colorwayInput = document.querySelector("#colorway");
 
+let brandFilter = document.querySelector("#brand-filter");
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -20,7 +22,7 @@ form.addEventListener("submit", function (e) {
 
   sneakers.push(newShoe);
 
-  displayShoes();
+  displayShoes(sneakers);
 });
 
 let modelOne = {
@@ -53,10 +55,10 @@ sneakers.push(modelThree);
 
 let shoeList = document.querySelector(".shoe-list");
 
-function displayShoes() {
+function displayShoes(arr) {
   shoeList.textContent = "";
 
-  sneakers.forEach(function (shoe, index) {
+  arr.forEach(function (shoe, index) {
     let shoeCard = document.createElement("div");
 
     let h2 = document.createElement("h2");
@@ -108,7 +110,18 @@ shoeList.addEventListener("click", function (e) {
     displayShoes();
     console.log(sneakers[index].favorite);
   }
-  displayShoes();
+  displayShoes(sneakers);
 });
 
-displayShoes();
+displayShoes(sneakers);
+
+brandFilter.addEventListener("change", function (e) {
+  let selectedBrand = e.target.value;
+
+  let filteredShoe = sneakers.filter(function (shoe) {
+    return shoe.brand === selectedBrand;
+  });
+
+  // console.log(filteredShoe);
+  displayShoes(filteredShoe);
+});
