@@ -18,14 +18,17 @@ form.addEventListener("submit", function (e) {
     size: sizeInput.value,
     colorway: colorwayInput.value,
     favorite: false,
+    id: crypto.randomUUID(),
   };
 
   sneakers.push(newShoe);
 
   displayShoes(sneakers);
+  console.log(sneakers);
 });
 
 let modelOne = {
+  id: 1,
   brand: "Jordan",
   model: "Reto 6",
   colorway: "Black",
@@ -34,6 +37,7 @@ let modelOne = {
 };
 
 let modelTwo = {
+  id: 2,
   brand: "Jordan",
   model: "Retro 3",
   colorway: "True Blue",
@@ -42,6 +46,7 @@ let modelTwo = {
 };
 
 let modelThree = {
+  id: 3,
   brand: "New Balance",
   model: "9060",
   colorway: "Grey",
@@ -75,7 +80,7 @@ function displayShoes(arr) {
 
     // Favorite button
     let favoriteButton = document.createElement("button");
-    favoriteButton.className = "Favorite";
+    favoriteButton.className = "favorite";
     if (shoe.favorite) {
       favoriteButton.textContent = "★ Favorited";
       favoriteButton.classList.add("is-active");
@@ -84,13 +89,13 @@ function displayShoes(arr) {
       favoriteButton.classList.remove("is-active");
     }
 
-    favoriteButton.value = index;
+    favoriteButton.value = shoe.id;
     shoeCard.appendChild(favoriteButton);
 
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.className = "delete";
-    deleteButton.value = index;
+    deleteButton.value = shoe.id;
 
     shoeCard.appendChild(deleteButton);
 
@@ -100,17 +105,22 @@ function displayShoes(arr) {
 
 shoeList.addEventListener("click", function (e) {
   if (e.target.className === "delete") {
-    let index = Number(e.target.value);
-    sneakers = sneakers.filter(function (shoe, shoeIndex) {
-      return shoeIndex !== index;
+    let id = e.target.value;
+    sneakers = sneakers.filter(function (shoe) {
+      return String(shoe.id) !== id;
     });
-  } else if (e.target.classList.contains("Favorite")) {
-    let index = Number(e.target.value);
-    sneakers[index].favorite = !sneakers[index].favorite;
-    displayShoes();
-    console.log(sneakers[index].favorite);
+    displayShoes(sneakers);
+  } else if (e.target.classList.contains("favorite")) {
+    let id = e.target.value;
+    let selectedShoe = sneakers.find(function (shoe) {
+      return String(shoe.id) === id;
+    });
+
+    if (selectedShoe) {
+      selectedShoe.favorite = !selectedShoe.favorite;
+      displayShoes(sneakers);
+    }
   }
-  displayShoes(sneakers);
 });
 
 displayShoes(sneakers);
@@ -118,10 +128,13 @@ displayShoes(sneakers);
 brandFilter.addEventListener("change", function (e) {
   let selectedBrand = e.target.value;
 
-  let filteredShoe = sneakers.filter(function (shoe) {
-    return shoe.brand === selectedBrand;
-  });
+  if (selectedBrand === "all") {
+    displayShoes(sneakers);
+  } else {
+    let filteredShoe = sneakers.filter(function (shoe) {
+      return shoe.brand === selectedBrand;
+    });
 
-  // console.log(filteredShoe);
-  displayShoes(filteredShoe);
+    displayShoes(filteredShoe);
+  }
 });
