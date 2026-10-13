@@ -12,9 +12,17 @@ let brandFilter = document.querySelector("#brand-filter");
 let searchSelector = document.querySelector("#shoe-search");
 
 searchSelector.addEventListener("input", function (e) {
-  let searchTerm = e.target.value;
+  let searchTerm = e.target.value.toLowerCase();
 
-  console.log(searchTerm);
+  let filteredSneakers = sneakers.filter(function (shoe) {
+    return (
+      shoe.brand.toLowerCase().includes(searchTerm) ||
+      shoe.model.toLowerCase().includes(searchTerm) ||
+      shoe.colorway.toLowerCase().includes(searchTerm)
+    );
+  });
+
+  displayShoes(filteredSneakers);
 });
 
 form.addEventListener("submit", function (e) {
@@ -38,7 +46,7 @@ form.addEventListener("submit", function (e) {
 let modelOne = {
   id: 1,
   brand: "Jordan",
-  model: "Reto 6",
+  model: "Retro 6",
   colorway: "Black",
   size: 8,
   favorite: false,
