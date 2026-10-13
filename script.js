@@ -9,6 +9,14 @@ let colorwayInput = document.querySelector("#colorway");
 
 let brandFilter = document.querySelector("#brand-filter");
 
+let searchSelector = document.querySelector("#shoe-search");
+
+searchSelector.addEventListener("input", function (e) {
+  let searchTerm = e.target.value;
+
+  console.log(searchTerm);
+});
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
